@@ -25,7 +25,7 @@ var getRandomValue = function (arr) {
 
 function getRandomInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-};
+}
 
 function shuffleArray(array) {
   for (var i = array.length - 1; i > 0; i--) {
@@ -71,9 +71,9 @@ var createPins = function (count) {
         'description': 'строка с тестовым описанием предложения',
         'photos': shuffleArray(PHOTOS).slice([getRandomInRange(0, 3)])
       },
-        'location': {
-          'x': locationX,
-          'y': locationY
+      'location': {
+        'x': locationX,
+        'y': locationY
       }
     };
   }
@@ -82,11 +82,7 @@ var createPins = function (count) {
 
 };
 
-//тестовый вызов функции
-var test = createPins(5);
-
-console.log(test);
+createPins(8);
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
-
