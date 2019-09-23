@@ -75,6 +75,9 @@ var createPins = function (count) {
 
 };
 
+var map = document.querySelector('.map');
+map.classList.remove('map--faded');
+
 var mapPinsList = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin')
   .content
