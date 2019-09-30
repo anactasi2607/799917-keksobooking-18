@@ -205,3 +205,33 @@ timeOut.addEventListener('change', function () {
 timeIn.addEventListener('change', function () {
   timeOut.value = timeIn.value;
 });
+
+var roomsSelect = adForm.querySelector('#room_number');
+var capacity = adForm.querySelector('#capacity');
+var guest0 = capacity.querySelector('option:last-child');
+var guest1 = capacity.querySelector('option:nth-child(3)');
+var guest2 = capacity.querySelector('option:nth-child(2)');
+var guest3 = capacity.querySelector('option:first-child');
+guest3.removeAttribute('selected');
+guest1.setAttribute('selected', '');
+capacity.innerHTML = '';
+capacity.appendChild(guest1);
+
+roomsSelect.addEventListener('change', function (evt) {
+  if (roomsSelect.value === '1') {
+    capacity.innerHTML = '';
+    capacity.appendChild(guest1);
+  } else if (roomsSelect.value === '2') {
+    capacity.innerHTML = '';
+    capacity.appendChild(guest1);
+    capacity.appendChild(guest2);
+  } else if (roomsSelect.value === '3') {
+    capacity.innerHTML = '';
+    capacity.appendChild(guest1);
+    capacity.appendChild(guest2);
+    capacity.appendChild(guest3);
+  } else if (roomsSelect.value === '100') {
+    capacity.innerHTML = '';
+    capacity.appendChild(guest0);
+  }
+});
