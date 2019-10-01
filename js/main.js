@@ -128,9 +128,7 @@ var map = document.querySelector('.map');
 var mapPinMain = document.querySelector('.map__pin--main');
 var adressInput = adForm.querySelector('#address');
 
-var mapLocationX = mapPinMain.style.left.replace('px', '');
-var mapLocationY = mapPinMain.style.left.replace('px', '');
-adressInput.setAttribute('value', (+mapLocationX + MAINPIN_WIDTH / 2) + ', ' + (+mapLocationY + MAINPIN_HEIGHT));
+adressInput.setAttribute('value', (mapPinMain.offsetLeft + MAINPIN_WIDTH / 2) + ', ' + (mapPinMain.offsetTop + MAINPIN_HEIGHT));
 adressInput.setAttribute('readonly', '');
 
 var deactivatePage = function () {
@@ -152,7 +150,8 @@ var activatePage = function () {
   removeDisabled(mapFormFieldset);
   var pins = createPins(numberPins);
   createFragment(pins);
-  adressInput.setAttribute('value', (+mapLocationX + MAINPIN_WIDTH / 2) + ', ' + (+mapLocationY + MAINPIN_HEIGHT));
+  activateRoomsInput();
+  adressInput.setAttribute('value', (mapPinMain.offsetLeft + MAINPIN_WIDTH / 2) + ', ' + (mapPinMain.offsetTop + MAINPIN_HEIGHT));
 };
 
 mapPinMain.addEventListener('mousedown', function () {
@@ -160,6 +159,7 @@ mapPinMain.addEventListener('mousedown', function () {
 });
 
 mapPinMain.addEventListener('keydown', function (evt) {
+  evt.preventDefault();
   if (evt.keyCode === ENTER_KEYCODE) {
     activatePage();
   }
@@ -179,7 +179,7 @@ priceInput.setAttribute('placeholder', '1000');
 
 var typeInput = adForm.querySelector('#type');
 
-typeInput.addEventListener('change', function (evt) {
+typeInput.addEventListener('change', function () {
   if (typeInput.value === 'bungalo') {
     priceInput.setAttribute('min', '0');
     priceInput.setAttribute('placeholder', '0');
@@ -208,30 +208,52 @@ timeIn.addEventListener('change', function () {
 
 var roomsSelect = adForm.querySelector('#room_number');
 var capacity = adForm.querySelector('#capacity');
-var guest0 = capacity.querySelector('option:last-child');
-var guest1 = capacity.querySelector('option:nth-child(3)');
-var guest2 = capacity.querySelector('option:nth-child(2)');
-var guest3 = capacity.querySelector('option:first-child');
-guest3.removeAttribute('selected');
-guest1.setAttribute('selected', '');
-capacity.innerHTML = '';
-capacity.appendChild(guest1);
+var capacityOptions = adForm.querySelectorAll('#capacity option');
 
-roomsSelect.addEventListener('change', function (evt) {
-  if (roomsSelect.value === '1') {
-    capacity.innerHTML = '';
-    capacity.appendChild(guest1);
-  } else if (roomsSelect.value === '2') {
-    capacity.innerHTML = '';
-    capacity.appendChild(guest1);
-    capacity.appendChild(guest2);
-  } else if (roomsSelect.value === '3') {
-    capacity.innerHTML = '';
-    capacity.appendChild(guest1);
-    capacity.appendChild(guest2);
-    capacity.appendChild(guest3);
-  } else if (roomsSelect.value === '100') {
-    capacity.innerHTML = '';
-    capacity.appendChild(guest0);
+function setAllOptions() {
+  for (var i = 0; i < capacityOptions.length; i++) {
+    if (capacity.options[i].hasAttribute('disabled')) {
+      capacity.options[i].removeAttribute('disabled');
+    }
+    if (capacity.options[i].hasAttribute('selected')) {
+      capacity.options[i].removeAttribute('selected');
+    }
   }
-});
+}
+
+function activateRoomsInput() {
+  setAllOptions();
+  capacity.options[0].disabled = true;
+  capacity.options[1].disabled = true;
+  capacity.options[3].disabled = true;
+  capacity.options[2].selected = true;
+}
+
+function syncRoomsGuests() {
+  setAllOptions();
+  switch (roomsSelect.value) {
+    case '1':
+      capacity.options[0].disabled = true;
+      capacity.options[1].disabled = true;
+      capacity.options[3].disabled = true;
+      capacity.options[2].selected = true;
+      break;
+    case '2':
+      capacity.options[0].disabled = true;
+      capacity.options[3].disabled = true;
+      capacity.options[2].selected = true;
+      break;
+    case '3':
+      capacity.options[3].disabled = true;
+      capacity.options[2].selected = true;
+      break;
+    case '100':
+      capacity.options[0].disabled = true;
+      capacity.options[1].disabled = true;
+      capacity.options[2].disabled = true;
+      capacity.options[3].selected = true;
+      break;
+  }
+}
+
+roomsSelect.addEventListener('change', syncRoomsGuests);
