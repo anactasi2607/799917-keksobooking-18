@@ -12,6 +12,15 @@ var AVATAR_HEIGHT = 40;
 var MAINPIN_WIDTH = 62;
 var MAINPIN_HEIGHT = 84;
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+var ENTER_KEYCODE = 13;
+var TITLE_MINLENGTH = 30;
+var TITLE_MAXLENGTH = 100;
+var MAXPRICE = 1000000;
+var PRICE_PLACEHOLDER = 1000;
+var BUNGALO_PRICE = 0;
+var FLAT_PRICE = 1000;
+var HOUSE_PRICE = 5000;
+var PALACE_PRICE = 10000;
 
 var getRandomValue = function (arr) {
   return Math.floor(Math.random() * arr.length);
@@ -105,7 +114,6 @@ var createFragment = function (arr) {
   mapPinsList.appendChild(fragment);
 };
 
-var ENTER_KEYCODE = 13;
 var adForm = document.querySelector('.ad-form');
 var formFieldset = adForm.querySelectorAll('fieldset');
 
@@ -126,10 +134,15 @@ var mapFormSelect = mapForm.querySelectorAll('select');
 var mapFormFieldset = mapForm.querySelectorAll('fieldset');
 var map = document.querySelector('.map');
 var mapPinMain = document.querySelector('.map__pin--main');
-var adressInput = adForm.querySelector('#address');
 
-adressInput.setAttribute('value', (mapPinMain.offsetLeft + MAINPIN_WIDTH / 2) + ', ' + (mapPinMain.offsetTop + MAINPIN_HEIGHT));
-adressInput.setAttribute('readonly', '');
+var setAdressAttribute = function () {
+  var adressInput = adForm.querySelector('#address');
+
+  adressInput.setAttribute('value', (mapPinMain.offsetLeft + MAINPIN_WIDTH / 2) + ', ' + (mapPinMain.offsetTop + MAINPIN_HEIGHT));
+  adressInput.setAttribute('readonly', '');
+};
+
+setAdressAttribute();
 
 var deactivatePage = function () {
   adForm.classList.add('ad-form--disabled');
@@ -151,7 +164,7 @@ var activatePage = function () {
   var pins = createPins(numberPins);
   createFragment(pins);
   activateRoomsInput();
-  adressInput.setAttribute('value', (mapPinMain.offsetLeft + MAINPIN_WIDTH / 2) + ', ' + (mapPinMain.offsetTop + MAINPIN_HEIGHT));
+  setAdressAttribute();
 };
 
 mapPinMain.addEventListener('mousedown', function () {
@@ -167,31 +180,31 @@ mapPinMain.addEventListener('keydown', function (evt) {
 
 var titleInput = adForm.querySelector('#title');
 
-titleInput.setAttribute('minlength', '30');
-titleInput.setAttribute('maxlength', '100');
+titleInput.setAttribute('minlength', TITLE_MINLENGTH);
+titleInput.setAttribute('maxlength', TITLE_MAXLENGTH);
 titleInput.setAttribute('required', '');
 
 var priceInput = adForm.querySelector('#price');
 
-priceInput.setAttribute('max', '1 000 000');
+priceInput.setAttribute('max', MAXPRICE);
 priceInput.setAttribute('required', '');
-priceInput.setAttribute('placeholder', '1000');
+priceInput.setAttribute('placeholder', PRICE_PLACEHOLDER);
 
 var typeInput = adForm.querySelector('#type');
 
 typeInput.addEventListener('change', function () {
   if (typeInput.value === 'bungalo') {
-    priceInput.setAttribute('min', '0');
-    priceInput.setAttribute('placeholder', '0');
+    priceInput.setAttribute('min', BUNGALO_PRICE);
+    priceInput.setAttribute('placeholder', BUNGALO_PRICE);
   } else if (typeInput.value === 'flat') {
-    priceInput.setAttribute('min', '1000');
-    priceInput.setAttribute('placeholder', '1000');
+    priceInput.setAttribute('min', FLAT_PRICE);
+    priceInput.setAttribute('placeholder', FLAT_PRICE);
   } else if (typeInput.value === 'house') {
-    priceInput.setAttribute('min', '5000');
-    priceInput.setAttribute('placeholder', '5000');
+    priceInput.setAttribute('min', HOUSE_PRICE);
+    priceInput.setAttribute('placeholder', HOUSE_PRICE);
   } else if (typeInput.value === 'palace') {
-    priceInput.setAttribute('min', '10000');
-    priceInput.setAttribute('placeholder', '10000');
+    priceInput.setAttribute('min', PALACE_PRICE);
+    priceInput.setAttribute('placeholder', PALACE_PRICE);
   }
 });
 
