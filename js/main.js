@@ -11,25 +11,6 @@ var AVATAR_WIDTH = 40;
 var AVATAR_HEIGHT = 40;
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
-var getRandomValue = function (arr) {
-  return Math.floor(Math.random() * arr.length);
-};
-
-function getRandomInRange(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function shuffleArray(array) {
-  for (var i = array.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
-  }
-
-  return array;
-}
-
 var createPins = function (count) {
   var pins = [];
 
@@ -38,14 +19,14 @@ var createPins = function (count) {
 
 
   for (var i = 1; i <= count; i++) {
-    var price = getRandomInRange(1, 100000);
-    var type = getRandomValue(TYPE);
-    var rooms = getRandomValue(ROOMS);
-    var guests = getRandomValue(GUESTS);
-    var checkin = getRandomValue(CHECKIN);
-    var checkout = getRandomValue(CHECKOUT);
-    var locationX = getRandomInRange(0, mapOffsetWidth);
-    var locationY = getRandomInRange(130, 630);
+    var price = window.util.getRandomInRange(1, 100000);
+    var type = window.util.getRandomValue(TYPE);
+    var rooms = window.util.getRandomValue(ROOMS);
+    var guests = window.util.getRandomValue(GUESTS);
+    var checkin = window.util.getRandomValue(CHECKIN);
+    var checkout = window.util.getRandomValue(CHECKOUT);
+    var locationX = window.util.getRandomInRange(0, mapOffsetWidth);
+    var locationY = window.util.getRandomInRange(130, 630);
 
     pins.push({
       'author': {
@@ -60,9 +41,9 @@ var createPins = function (count) {
         'guests': GUESTS[guests],
         'checkin': CHECKIN[checkin],
         'checkout': CHECKOUT[checkout],
-        'features': shuffleArray(FEATURES).slice([getRandomInRange(0, 6)]),
+        'features': window.util.shuffleArray(FEATURES).slice([window.util.getRandomInRange(0, 6)]),
         'description': 'строка с тестовым описанием предложения',
-        'photos': shuffleArray(PHOTOS).slice([getRandomInRange(0, 3)])
+        'photos': window.util.shuffleArray(PHOTOS).slice([window.util.getRandomInRange(0, 3)])
       },
       'location': {
         'x': locationX,
