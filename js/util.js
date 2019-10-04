@@ -3,9 +3,9 @@
 //  В этом файле хранятся независимые функции
 
 (function () {
-  var getRandomValue = function (arr) {
+  function getRandomValue(arr) {
     return Math.floor(Math.random() * arr.length);
-  };
+  }
 
   function getRandomInRange(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;

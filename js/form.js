@@ -5,18 +5,19 @@
 (function () {
   var adForm = document.querySelector('.ad-form');
   var formFieldset = adForm.querySelectorAll('fieldset');
+  var constant = window.const;
 
-  var addDisabled = function (formElements) {
+  function addDisabled(formElements) {
     for (var i = 0; i < formElements.length; i++) {
       formElements[i].setAttribute('disabled', '');
     }
-  };
+  }
 
-  var removeDisabled = function (formElements) {
+  function removeDisabled(formElements) {
     for (var i = 0; i < formElements.length; i++) {
       formElements[i].disabled = false;
     }
-  };
+  }
 
   var mapForm = document.querySelector('.map__filters');
   var mapFormSelect = mapForm.querySelectorAll('select');
@@ -24,76 +25,78 @@
   var map = document.querySelector('.map');
   var mapPinMain = document.querySelector('.map__pin--main');
 
-  var setAdressAttribute = function () {
+  function setAdressAttribute() {
     var adressInput = adForm.querySelector('#address');
 
-    adressInput.setAttribute('value', (mapPinMain.offsetLeft + window.const.MAINPIN_WIDTH / 2) + ', ' + (mapPinMain.offsetTop + window.const.MAINPIN_HEIGHT));
+    adressInput.setAttribute('value', (mapPinMain.offsetLeft + constant.MAINPIN_WIDTH / 2) + ', ' + (mapPinMain.offsetTop + constant.MAINPIN_HEIGHT));
     adressInput.setAttribute('readonly', '');
-  };
+  }
 
   setAdressAttribute();
 
-  var deactivatePage = function () {
+  function deactivatePage() {
     adForm.classList.add('ad-form--disabled');
     mapForm.classList.add('ad-form--disabled');
     addDisabled(formFieldset);
     addDisabled(mapFormSelect);
     addDisabled(mapFormFieldset);
-  };
+  }
 
   deactivatePage();
 
-  var activatePage = function () {
+  function activatePage() {
     map.classList.remove('map--faded');
     mapForm.classList.remove('ad-form--disabled');
     adForm.classList.remove('ad-form--disabled');
     removeDisabled(formFieldset);
     removeDisabled(mapFormSelect);
     removeDisabled(mapFormFieldset);
-    var pins = window.data.createPins(window.const.NUMBER_PINS);
+    var pins = window.data.createPins(constant.NUMBER_PINS);
     window.map.createFragment(pins);
     activateRoomsInput();
     setAdressAttribute();
-  };
+    mapPinMain.removeEventListener('mousedown', activatePage);
+    mapPinMain.removeEventListener('keydown', activatePageKeydown);
+  }
 
-  mapPinMain.addEventListener('mousedown', function () {
-    activatePage();
-  });
+  mapPinMain.addEventListener('mousedown', activatePage);
 
-  mapPinMain.addEventListener('keydown', function (evt) {
+  function activatePageKeydown(evt) {
     evt.preventDefault();
-    if (evt.keyCode === window.const.ENTER_KEYCODE) {
+    if (evt.keyCode === constant.ENTER_KEYCODE) {
       activatePage();
     }
-  });
+  }
+
+  mapPinMain.addEventListener('keydown', activatePageKeydown);
 
   var titleInput = adForm.querySelector('#title');
 
-  titleInput.setAttribute('minlength', window.const.TITLE_MINLENGTH);
-  titleInput.setAttribute('maxlength', window.const.TITLE_MAXLENGTH);
+  titleInput.setAttribute('minlength', constant.TITLE_MINLENGTH);
+  titleInput.setAttribute('maxlength', constant.TITLE_MAXLENGTH);
   titleInput.setAttribute('required', '');
 
   var priceInput = adForm.querySelector('#price');
 
-  priceInput.setAttribute('max', window.const.MAXPRICE);
+  priceInput.setAttribute('max', constant.MAXPRICE);
   priceInput.setAttribute('required', '');
-  priceInput.setAttribute('placeholder', window.const.PRICE_PLACEHOLDER);
+  priceInput.setAttribute('placeholder', constant.PRICE_PLACEHOLDER);
 
   var typeInput = adForm.querySelector('#type');
 
   typeInput.addEventListener('change', function () {
     if (typeInput.value === 'bungalo') {
-      priceInput.setAttribute('min', window.const.BUNGALO_PRICE);
-      priceInput.setAttribute('placeholder', window.const.BUNGALO_PRICE);
+      priceInput.setAttribute('min', constant.BUNGALO_PRICE);
+      priceInput.setAttribute('placeholder', constant.BUNGALO_PRICE);
     } else if (typeInput.value === 'flat') {
-      priceInput.setAttribute('min', window.const.FLAT_PRICE);
-      priceInput.setAttribute('placeholder', window.const.FLAT_PRICE);
+      priceInput.setAttribute('min', constant.FLAT_PRICE);
+      priceInput.setAttribute('placeholder', constant.FLAT_PRICE);
     } else if (typeInput.value === 'house') {
-      priceInput.setAttribute('min', window.const.HOUSE_PRICE);
-      priceInput.setAttribute('placeholder', window.const.HOUSE_PRICE);
+      priceInput.setAttribute('min', constant.HOUSE_PRICE);
+      priceInput.setAttribute('placeholder', constant.HOUSE_PRICE);
     } else if (typeInput.value === 'palace') {
-      priceInput.setAttribute('min', window.const.PALACE_PRICE);
-      priceInput.setAttribute('placeholder', window.const.PALACE_PRICE);
+      priceInput.setAttribute('min', constant.PALACE_PRICE);
+      priceInput.setAttribute('placeholder', constant.PALACE_PRICE);
     }
   });
 

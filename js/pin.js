@@ -6,11 +6,13 @@
     .content
     .querySelector('.map__pin');
 
+  var constant = window.const;
+
   function renderPin(pin) {
     var pinElement = pinTemplate.cloneNode(true);
 
-    pinElement.style.left = (pin.location.x - window.const.AVATAR_WIDTH / 2) + 'px';
-    pinElement.style.top = (pin.location.y - window.const.AVATAR_HEIGHT) + 'px';
+    pinElement.style.left = (pin.location.x - constant.AVATAR_WIDTH / 2) + 'px';
+    pinElement.style.top = (pin.location.y - constant.AVATAR_HEIGHT) + 'px';
 
     var pinImgElement = pinElement.querySelector('img');
 
