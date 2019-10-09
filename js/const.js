@@ -3,7 +3,6 @@
 //  В этом файле хранятся константы
 
 (function () {
-  var NUMBER_PINS = 8;
   var TYPE = ['palace', 'flat', 'house', 'bungalo'];
   var ROOMS = ['1 комната', '2 комнаты', '3 комнаты', '100 комнат'];
   var GUESTS = ['для 1 гостя', 'для 2 гостей', 'для 3 гостей', 'не для гостей'];
@@ -14,7 +13,6 @@
   var AVATAR_HEIGHT = 40;
   var MAINPIN_WIDTH = 62;
   var MAINPIN_HEIGHT = 84;
-  var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
   var ENTER_KEYCODE = 13;
   var TITLE_MINLENGTH = 30;
   var TITLE_MAXLENGTH = 100;
@@ -26,7 +24,6 @@
   var PALACE_PRICE = 10000;
 
   window.const = {
-    NUMBER_PINS: NUMBER_PINS,
     TYPE: TYPE,
     ROOMS: ROOMS,
     GUESTS: GUESTS,
@@ -37,7 +34,6 @@
     AVATAR_HEIGHT: AVATAR_HEIGHT,
     MAINPIN_WIDTH: MAINPIN_WIDTH,
     MAINPIN_HEIGHT: MAINPIN_HEIGHT,
-    PHOTOS: PHOTOS,
     ENTER_KEYCODE: ENTER_KEYCODE,
     TITLE_MINLENGTH: TITLE_MINLENGTH,
     TITLE_MAXLENGTH: TITLE_MAXLENGTH,
