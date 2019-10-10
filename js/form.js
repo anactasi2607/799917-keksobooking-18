@@ -44,6 +44,17 @@
 
   deactivatePage();
 
+  function errorHandler(errorMessage) {
+    var mainSection = document.querySelector('main');
+    var errorTemplate = document.querySelector('#error').content.querySelector('.error');
+    var errorText = errorTemplate.querySelector('p');
+    errorText.textContent = errorMessage;
+
+    var errorElement = errorTemplate.cloneNode(true);
+
+    mainSection.appendChild(errorElement);
+  }
+
   function activatePage() {
     map.classList.remove('map--faded');
     mapForm.classList.remove('ad-form--disabled');
@@ -51,8 +62,15 @@
     removeDisabled(formFieldset);
     removeDisabled(mapFormSelect);
     removeDisabled(mapFormFieldset);
-    var pins = window.data.createPins(constant.NUMBER_PINS);
-    window.map.createFragment(pins);
+    window.backend.load(function createFragment(pin) {
+      var mapPinsList = document.querySelector('.map__pins');
+      var fragment = document.createDocumentFragment();
+
+      for (var i = 0; i < pin.length; i++) {
+        fragment.appendChild(window.pin.renderPin(pin[i]));
+      }
+      mapPinsList.appendChild(fragment);
+    }, errorHandler);
     activateRoomsInput();
     setAdressAttribute();
     mapPinMain.removeEventListener('mousedown', activatePage);
