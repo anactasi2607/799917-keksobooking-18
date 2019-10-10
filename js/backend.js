@@ -28,7 +28,19 @@
     xhr.send();
   }
 
+  function errorHandler(errorMessage) {
+    var mainSection = document.querySelector('main');
+    var errorTemplate = document.querySelector('#error').content.querySelector('.error');
+    var errorText = errorTemplate.querySelector('p');
+    errorText.textContent = errorMessage;
+
+    var errorElement = errorTemplate.cloneNode(true);
+
+    mainSection.appendChild(errorElement);
+  }
+
   window.backend = {
-    load: load
+    load: load,
+    errorHandler: errorHandler
   };
 })();
