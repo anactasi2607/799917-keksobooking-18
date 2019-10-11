@@ -6,12 +6,12 @@
 
 (function () {
 
-  function createFragment(arr) {
+  function createFragment(arrData) {
     var mapPinsList = document.querySelector('.map__pins');
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < arr.length; i++) {
-      fragment.appendChild(window.pin.renderPin(arr[i]));
+    for (var i = 0; i < arrData.length; i++) {
+      fragment.appendChild(window.pin.renderPin(arrData[i]));
     }
 
     mapPinsList.appendChild(fragment);

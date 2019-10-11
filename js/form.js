@@ -51,24 +51,7 @@
     removeDisabled(formFieldset);
     removeDisabled(mapFormSelect);
     removeDisabled(mapFormFieldset);
-    function createFragment(pin) {
-      var mapPinsList = document.querySelector('.map__pins');
-      var fragment = document.createDocumentFragment();
-
-      for (var i = 0; i < pin.length; i++) {
-        fragment.appendChild(window.pin.renderPin(pin[i]));
-      }
-      mapPinsList.appendChild(fragment);
-    };
-
-    window.backend.load(createFragment, window.backend.errorHandler);
-
-    /*function successHandler(pin) {
-      pin.forEach(window.pin.renderPin, window.pin.fragment);
-    };
-
-    window.backend.load(createFragment, window.backend.errorHandler);*/
-
+    window.backend.load(window.map.createFragment, window.backend.errorHandler);
     activateRoomsInput();
     setAdressAttribute();
     mapPinMain.removeEventListener('mousedown', activatePage);

@@ -2,7 +2,6 @@
 // Этот модуль нужен для создания меток на карте
 
 (function () {
-  var fragment = document.createDocumentFragment();
   var pinTemplate = document.querySelector('#pin')
     .content
     .querySelector('.map__pin');
@@ -19,13 +18,10 @@
 
     pinImgElement.src = pin.author.avatar;
     pinImgElement.alt = pin.offer.title;
-
-    fragment.appendChild(pinElement);
     return pinElement;
   }
 
   window.pin = {
-    renderPin: renderPin,
-    fragment: fragment
+    renderPin: renderPin
   };
 })();
