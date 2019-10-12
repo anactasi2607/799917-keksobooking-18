@@ -52,6 +52,7 @@
     removeDisabled(mapFormSelect);
     removeDisabled(mapFormFieldset);
     window.backend.load(window.map.createFragment, window.backend.errorHandler);
+    window.backend.load(window.map.createFragmentCard, window.backend.errorHandler);
     activateRoomsInput();
     setAdressAttribute();
     mapPinMain.removeEventListener('mousedown', activatePage);

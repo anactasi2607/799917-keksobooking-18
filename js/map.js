@@ -17,7 +17,20 @@
     mapPinsList.appendChild(fragment);
   }
 
+  function createFragmentCard(arrData) {
+    var map = document.querySelector('.map');
+    var filterContainer = map.querySelector('.map__filters-container');
+    var fragment = document.createDocumentFragment();
+
+    for (var i = 0; i < arrData.length; i++) {
+      fragment.appendChild(window.card.renderCard(arrData[i]));
+    }
+
+    map.insertBefore(fragment, filterContainer);
+  }
+
   window.map = {
-    createFragment: createFragment
+    createFragment: createFragment,
+    createFragmentCard: createFragmentCard
   };
 })();
