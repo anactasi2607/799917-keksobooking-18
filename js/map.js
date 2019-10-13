@@ -11,23 +11,40 @@
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < arrData.length; i++) {
-      fragment.appendChild(window.pin.renderPin(arrData[i]));
+      var item = window.pin.renderPin(arrData[i]);
+      item.dataset.id = 'item' + [i];
+      fragment.appendChild(item);
     }
 
     mapPinsList.appendChild(fragment);
   }
 
+  var map = document.querySelector('.map');
+
   function createFragmentCard(arrData) {
-    var map = document.querySelector('.map');
     var filterContainer = map.querySelector('.map__filters-container');
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < arrData.length; i++) {
-      fragment.appendChild(window.card.renderCard(arrData[i]));
+      var item = window.card.renderCard(arrData[i]);
+      item.id = 'item' + [i];
+      fragment.appendChild(item);
     }
 
     map.insertBefore(fragment, filterContainer);
   }
+
+  function toggleCard(event) {
+    var data = event.target.dataset.id;
+    if (!data) {
+      return;
+    } else {
+      var elem = document.getElementById(data);
+      elem.hidden = !elem.hidden;
+    }
+  }
+
+  document.addEventListener('click', toggleCard);
 
   window.map = {
     createFragment: createFragment,
