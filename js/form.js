@@ -72,13 +72,13 @@
 
   var titleInput = adForm.querySelector('#title');
 
-  titleInput.setAttribute('minlength', constant.TITLE_MINLENGTH);
-  titleInput.setAttribute('maxlength', constant.TITLE_MAXLENGTH);
+  titleInput.setAttribute('minlength', constant.TITLE_MIN_LENGTH);
+  titleInput.setAttribute('maxlength', constant.TITLE_MAX_LENGTH);
   titleInput.setAttribute('required', '');
 
   var priceInput = adForm.querySelector('#price');
 
-  priceInput.setAttribute('max', constant.MAXPRICE);
+  priceInput.setAttribute('max', constant.MAX_PRICE);
   priceInput.setAttribute('required', '');
   priceInput.setAttribute('placeholder', constant.PRICE_PLACEHOLDER);
 
