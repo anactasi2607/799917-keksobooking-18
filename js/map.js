@@ -26,15 +26,15 @@
     var fragment = document.createDocumentFragment();
 
     // for (var i = 0; i < arrData.length; i++) {
-      var item = window.card.renderCard(arrData[0]);
-      // item.id = 'item' + [i];
-      fragment.appendChild(item);
+    var item = window.card.renderCard(arrData[0]);
+    // item.id = 'item' + [i];
+    fragment.appendChild(item);
     // }
 
     map.insertBefore(fragment, filterContainer);
   }
 
-  /*function toggleCard(event) {
+  /*  function toggleCard(event) {
     var data = event.target.dataset.id;
     if (!data) {
       return;
@@ -43,9 +43,9 @@
 
       elem.hidden = !elem.hidden;
     }
-  }
-*/
-// document.addEventListener('click', toggleCard);
+  }*/
+
+  // document.addEventListener('click', toggleCard);
 
   window.map = {
     createFragment: createFragment,
