@@ -44,6 +44,15 @@
 
   deactivatePage();
 
+  //объявляю массив
+  var pins = [];
+
+  //пытаюсь записать в него данные с сервера
+  function successHandler(data) {
+    pins = data;
+    window.map.createFragment(pins);
+  }
+
   function activatePage() {
     map.classList.remove('map--faded');
     mapForm.classList.remove('ad-form--disabled');
@@ -51,13 +60,22 @@
     removeDisabled(formFieldset);
     removeDisabled(mapFormSelect);
     removeDisabled(mapFormFieldset);
-    window.backend.load(window.map.createFragment, window.backend.errorHandler);
-    window.backend.load(window.map.createFragmentCard, window.backend.errorHandler);
+    window.backend.load(successHandler, window.backend.errorHandler);
+
+/*  Это рабочий вариант кода, он действует, но запрашивает данные с сервера второй раз
+    window.backend.load(window.map.createFragmentCard, window.backend.errorHandler);*/
+
+    //Такая запись не работает, она не видит массив pins
+    window.map.createFragmentCard(pins);
+
     activateRoomsInput();
     setAdressAttribute();
     mapPinMain.removeEventListener('mousedown', activatePage);
     mapPinMain.removeEventListener('keydown', activatePageKeydown);
   }
+
+  //Хочу вывести массив в консоль, он пустой
+  console.log(pins);
 
   mapPinMain.addEventListener('mousedown', activatePage);
 

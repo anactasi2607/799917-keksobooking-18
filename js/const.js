@@ -3,12 +3,6 @@
 //  В этом файле хранятся константы
 
 (function () {
-  var TYPE = ['palace', 'flat', 'house', 'bungalo'];
-  var ROOMS = ['1 комната', '2 комнаты', '3 комнаты', '100 комнат'];
-  var GUESTS = ['для 1 гостя', 'для 2 гостей', 'для 3 гостей', 'не для гостей'];
-  var CHECKIN = ['12:00', '13:00', '14:00'];
-  var CHECKOUT = ['12:00', '13:00', '14:00'];
-  var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
   var AVATAR_WIDTH = 40;
   var AVATAR_HEIGHT = 40;
   var MAINPIN_WIDTH = 62;
@@ -24,12 +18,6 @@
   var PALACE_PRICE = 10000;
 
   window.const = {
-    TYPE: TYPE,
-    ROOMS: ROOMS,
-    GUESTS: GUESTS,
-    CHECKIN: CHECKIN,
-    CHECKOUT: CHECKOUT,
-    FEATURES: FEATURES,
     AVATAR_WIDTH: AVATAR_WIDTH,
     AVATAR_HEIGHT: AVATAR_HEIGHT,
     MAINPIN_WIDTH: MAINPIN_WIDTH,
