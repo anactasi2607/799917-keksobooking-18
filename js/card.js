@@ -71,6 +71,16 @@
 
     cardElement.querySelector('.popup__avatar').src = card.author.avatar;
 
+    var closeCard = cardElement.querySelector('.popup__close');
+
+    closeCard.addEventListener('click', window.util.closePopup);
+
+    document.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === window.const.ESC_KEYCODE) {
+        window.util.closePopup();
+      }
+    });
+
     return cardElement;
   }
 

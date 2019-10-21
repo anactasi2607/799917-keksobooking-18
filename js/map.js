@@ -13,6 +13,8 @@
     for (var i = 0; i < arrData.length; i++) {
       var item = window.pin.renderPin(arrData[i]);
       item.dataset.id = i;
+      var img = item.querySelector('img');
+      img.dataset.id = i;
       fragment.appendChild(item);
     }
 
@@ -20,35 +22,28 @@
   }
 
   var map = document.querySelector('.map');
+  var divCards = document.createElement('div');
+  var filterContainer = map.querySelector('.map__filters-container');
 
-  function createFragmentCard(arrData) {
-    var filterContainer = map.querySelector('.map__filters-container');
-    var fragment = document.createDocumentFragment();
-
-    // for (var i = 0; i < arrData.length; i++) {
-    var item = window.card.renderCard(arrData[0]);
-    // item.id = 'item' + [i];
-    fragment.appendChild(item);
-    // }
-
-    map.insertBefore(fragment, filterContainer);
+  function createCardSection() {
+    divCards.className = 'map__cards';
+    map.insertBefore(divCards, filterContainer);
   }
 
-  /*  function toggleCard(event) {
-    var data = event.target.dataset.id;
-    if (!data) {
-      return;
-    } else {
-      var elem = document.getElementById(data);
+  createCardSection();
 
-      elem.hidden = !elem.hidden;
-    }
-  }*/
+  function createFragmentCard(arrData, dataId) {
+    divCards.innerHTML = '';
+    var item = window.card.renderCard(arrData[dataId]);
 
-  // document.addEventListener('click', toggleCard);
+    divCards.appendChild(item);
+    map.insertBefore(divCards, filterContainer);
+  }
 
   window.map = {
     createFragment: createFragment,
-    createFragmentCard: createFragmentCard
+    createFragmentCard: createFragmentCard,
+    createCardSection: createCardSection,
+    divCards: divCards
   };
 })();

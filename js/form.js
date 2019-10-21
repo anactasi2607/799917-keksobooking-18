@@ -6,6 +6,7 @@
   var adForm = document.querySelector('.ad-form');
   var formFieldset = adForm.querySelectorAll('fieldset');
   var constant = window.const;
+  var pins = [];
 
   function addDisabled(formElements) {
     for (var i = 0; i < formElements.length; i++) {
@@ -44,10 +45,6 @@
 
   deactivatePage();
 
-  //  объявляю массив
-  var pins = [];
-
-  //  пытаюсь записать в него данные с сервера
   function successHandler(data) {
     pins = data;
     window.map.createFragment(pins);
@@ -62,20 +59,14 @@
     removeDisabled(mapFormFieldset);
     window.backend.load(successHandler, window.backend.errorHandler);
 
+
     /*  Это рабочий вариант кода, он действует, но запрашивает данные с сервера второй раз
     window.backend.load(window.map.createFragmentCard, window.backend.errorHandler);*/
-
-    //  Такая запись не работает, она не видит массив pins
-    window.map.createFragmentCard(pins);
-
     activateRoomsInput();
     setAdressAttribute();
     mapPinMain.removeEventListener('mousedown', activatePage);
     mapPinMain.removeEventListener('keydown', activatePageKeydown);
   }
-
-  //  Хочу вывести массив в консоль, он пустой
-  //  console.log(pins);
 
   mapPinMain.addEventListener('mousedown', activatePage);
 
@@ -87,6 +78,29 @@
   }
 
   mapPinMain.addEventListener('keydown', activatePageKeydown);
+
+  function setPinClass() {
+    var mapPins = document.querySelectorAll('.map__pin');
+    for (var i = 0; i < mapPins.length; i++) {
+      if (mapPins[i].classList.contains('map__pin--active')) {
+        mapPins[i].classList.remove('map__pin--active');
+      }
+    }
+  }
+
+  function toggleCard(event) {
+    var data = event.target.dataset.id;
+    if (!data) {
+      return;
+    } else {
+      window.map.createFragmentCard(pins, data);
+      setPinClass();
+      var mapPin = event.target;
+      mapPin.classList.add('map__pin--active');
+    }
+  }
+
+  map.addEventListener('click', toggleCard);
 
   var titleInput = adForm.querySelector('#title');
 
@@ -180,4 +194,8 @@
   }
 
   roomsSelect.addEventListener('change', syncRoomsGuests);
+
+  window.form = {
+    setPinClass: setPinClass
+  };
 })();
