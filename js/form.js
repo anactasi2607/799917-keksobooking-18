@@ -6,6 +6,7 @@
   var adForm = document.querySelector('.ad-form');
   var formFieldset = adForm.querySelectorAll('fieldset');
   var constant = window.const;
+  var pins = [];
 
   function addDisabled(formElements) {
     for (var i = 0; i < formElements.length; i++) {
@@ -44,15 +45,9 @@
 
   deactivatePage();
 
-  function errorHandler(errorMessage) {
-    var mainSection = document.querySelector('main');
-    var errorTemplate = document.querySelector('#error').content.querySelector('.error');
-    var errorText = errorTemplate.querySelector('p');
-    errorText.textContent = errorMessage;
-
-    var errorElement = errorTemplate.cloneNode(true);
-
-    mainSection.appendChild(errorElement);
+  function successHandler(data) {
+    pins = data;
+    window.map.createFragment(pins);
   }
 
   function activatePage() {
@@ -62,15 +57,7 @@
     removeDisabled(formFieldset);
     removeDisabled(mapFormSelect);
     removeDisabled(mapFormFieldset);
-    window.backend.load(function createFragment(pin) {
-      var mapPinsList = document.querySelector('.map__pins');
-      var fragment = document.createDocumentFragment();
-
-      for (var i = 0; i < pin.length; i++) {
-        fragment.appendChild(window.pin.renderPin(pin[i]));
-      }
-      mapPinsList.appendChild(fragment);
-    }, errorHandler);
+    window.backend.load(successHandler, window.backend.errorHandler);
     activateRoomsInput();
     setAdressAttribute();
     mapPinMain.removeEventListener('mousedown', activatePage);
@@ -88,15 +75,38 @@
 
   mapPinMain.addEventListener('keydown', activatePageKeydown);
 
+  function setPinClass() {
+    var mapPins = document.querySelectorAll('.map__pin');
+    for (var i = 0; i < mapPins.length; i++) {
+      if (mapPins[i].classList.contains('map__pin--active')) {
+        mapPins[i].classList.remove('map__pin--active');
+      }
+    }
+  }
+
+  function toggleCard(event) {
+    var data = event.target.dataset.id;
+    if (!data) {
+      return;
+    } else {
+      window.map.createFragmentCard(pins, data);
+      setPinClass();
+      var mapPin = event.target;
+      mapPin.classList.add('map__pin--active');
+    }
+  }
+
+  map.addEventListener('click', toggleCard);
+
   var titleInput = adForm.querySelector('#title');
 
-  titleInput.setAttribute('minlength', constant.TITLE_MINLENGTH);
-  titleInput.setAttribute('maxlength', constant.TITLE_MAXLENGTH);
+  titleInput.setAttribute('minlength', constant.TITLE_MIN_LENGTH);
+  titleInput.setAttribute('maxlength', constant.TITLE_MAX_LENGTH);
   titleInput.setAttribute('required', '');
 
   var priceInput = adForm.querySelector('#price');
 
-  priceInput.setAttribute('max', constant.MAXPRICE);
+  priceInput.setAttribute('max', constant.MAX_PRICE);
   priceInput.setAttribute('required', '');
   priceInput.setAttribute('placeholder', constant.PRICE_PLACEHOLDER);
 
@@ -180,4 +190,8 @@
   }
 
   roomsSelect.addEventListener('change', syncRoomsGuests);
+
+  window.form = {
+    setPinClass: setPinClass
+  };
 })();
