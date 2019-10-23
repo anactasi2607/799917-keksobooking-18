@@ -58,10 +58,6 @@
     removeDisabled(mapFormSelect);
     removeDisabled(mapFormFieldset);
     window.backend.load(successHandler, window.backend.errorHandler);
-
-
-    /*  Это рабочий вариант кода, он действует, но запрашивает данные с сервера второй раз
-    window.backend.load(window.map.createFragmentCard, window.backend.errorHandler);*/
     activateRoomsInput();
     setAdressAttribute();
     mapPinMain.removeEventListener('mousedown', activatePage);

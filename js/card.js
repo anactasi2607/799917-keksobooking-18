@@ -32,23 +32,26 @@
   function renderFeaturesList(featuresList, featuresSection) {
     featuresSection.innerHTML = '';
 
-    for (var i = 0; i < featuresList.length; i++) {
-      var featuresElement = getOfferFeature(featuresList[i]);
-      featuresSection.insertAdjacentHTML('beforeend', featuresElement);
-    }
+    featuresList.forEach(function (elem) {
+      featuresSection.insertAdjacentHTML('beforeend', getOfferFeature(elem));
+    });
   }
 
   function getOfferPhotos(elem) {
-    return '<img src="' + elem + '" class="' + 'popup__photo' + '"" width="' + 45 + '" height="' + 40 + '" alt="' + 'Фотография жилья' + '">';
+    return '<img src="' + elem + '" class="' + 'popup__photo' + '"" width="' + window.const.IMG_WIDTH + '" height="' + window.const.IMG_HEIGHT + '" alt="' + 'Фотография жилья' + '">';
   }
 
   function renderPhotosGallery(photosArr, photoSection) {
     photoSection.innerHTML = '';
 
-    for (var i = 0; i < photosArr.length; i++) {
-      var photoElement = getOfferPhotos(photosArr[i]);
-      photoSection.insertAdjacentHTML('beforeend', photoElement);
-    }
+    photosArr.forEach(function (elem) {
+      photoSection.insertAdjacentHTML('beforeend', getOfferPhotos(elem));
+    });
+  }
+
+  function closePopup() {
+    window.map.divCards.innerHTML = '';
+    window.form.setPinClass();
   }
 
   function renderCard(card) {
@@ -73,11 +76,11 @@
 
     var closeCard = cardElement.querySelector('.popup__close');
 
-    closeCard.addEventListener('click', window.util.closePopup);
+    closeCard.addEventListener('click', closePopup);
 
     document.addEventListener('keydown', function (evt) {
       if (evt.keyCode === window.const.ESC_KEYCODE) {
-        window.util.closePopup();
+        closePopup();
       }
     });
 
@@ -85,7 +88,8 @@
   }
 
   window.card = {
-    renderCard: renderCard
+    renderCard: renderCard,
+    closePopup: closePopup
   };
 
 })();

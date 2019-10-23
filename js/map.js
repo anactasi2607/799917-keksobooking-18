@@ -10,13 +10,13 @@
     var mapPinsList = document.querySelector('.map__pins');
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < arrData.length; i++) {
-      var item = window.pin.renderPin(arrData[i]);
-      item.dataset.id = i;
+    arrData.forEach(function (elem, index) {
+      var item = window.pin.renderPin(elem);
+      item.dataset.id = index;
       var img = item.querySelector('img');
-      img.dataset.id = i;
+      img.dataset.id = index;
       fragment.appendChild(item);
-    }
+    });
 
     mapPinsList.appendChild(fragment);
   }
