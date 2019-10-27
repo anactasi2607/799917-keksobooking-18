@@ -98,6 +98,12 @@
 
   map.addEventListener('click', toggleCard);
 
+  mapForm.addEventListener('change', function () {
+    window.map.removePins();
+    window.card.closePopup();
+    window.filter.updatePins(pins);
+  });
+
   var titleInput = adForm.querySelector('#title');
 
   titleInput.setAttribute('minlength', constant.TITLE_MIN_LENGTH);
@@ -192,6 +198,7 @@
   roomsSelect.addEventListener('change', syncRoomsGuests);
 
   window.form = {
-    setPinClass: setPinClass
+    setPinClass: setPinClass,
+    pins: pins
   };
 })();
