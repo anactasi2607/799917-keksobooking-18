@@ -51,9 +51,24 @@
     }
 
     if (filterSelects.length) {
-      console.log(filterData);
       window.map.createFragment(filterData);
     }
+
+    function toggleCard(event) {
+      var data = event.target.dataset.id;
+      if (!data) {
+        return;
+      } else {
+        window.map.createFragmentCard(filterData, data);
+        window.form.setPinClass();
+        var mapPin = event.target;
+        mapPin.classList.add('map__pin--active');
+      }
+    }
+
+    var map = document.querySelector('.map');
+
+    map.addEventListener('click', toggleCard);
   }
 
   window.filter = {
