@@ -3,7 +3,7 @@
 (function () {
   var PRICE_LIMIT = {
     low: 10000,
-    hight: 50000
+    high: 50000
   };
 
   var mapForm = document.querySelector('.map__filters');
@@ -25,28 +25,28 @@
       });
     }
 
-    /*  function filterByPrice(priceFilter) {
+      function filterByPrice(priceFilter) {
       return filterData.filter(function (dataElem) {
 
         var priceFilterValues = {
           'middle': dataElem.offer.price >= PRICE_LIMIT.low && dataElem.offer.price <= PRICE_LIMIT.high,
-          'low': dataElem.offer.price < PRICE_LIMIT.low,
+          'low': dataElem.offer.price <= PRICE_LIMIT.low,
           'high': dataElem.offer.price >= PRICE_LIMIT.high
         };
 
         return priceFilterValues[priceFilter.value];
       });
-    }*/
+    }
 
     if (filterSelects.length !== null) {
       filterSelects.forEach(function (item) {
         if (item.value !== 'any') {
-        /*  if (item.id !== 'housing-price'){*/
+          if (item.id !== 'housing-price'){
           filterData = filterByValue(item, FilterRules[item.id]);
-        }/* else {
+        } else {
             filterData = filterByPrice(item);
           }
-        }*/
+        }
       });
     }
 
@@ -54,21 +54,23 @@
       window.map.createFragment(filterData);
     }
 
-    function toggleCard(event) {
-      var data = event.target.dataset.id;
-      if (!data) {
-        return;
-      } else {
+  function toggleCard(event) {
+    var data = event.target.dataset.id;
+    if (!data) {
+      return;
+    } else {
+      if (filterData.length) {
         window.map.createFragmentCard(filterData, data);
         window.form.setPinClass();
         var mapPin = event.target;
         mapPin.classList.add('map__pin--active');
       }
     }
+  }
 
-    var map = document.querySelector('.map');
+  var map = document.querySelector('.map');
 
-    map.addEventListener('click', toggleCard);
+  map.addEventListener('click', toggleCard);
   }
 
   window.filter = {

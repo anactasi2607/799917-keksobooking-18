@@ -20,7 +20,7 @@
       fragment.appendChild(item);
       console.log('элемент: ' + '"' + elem.offer.title + '"' +
       ' тип: ' + '"' + elem.offer.type + '"' + ' для ' +
-      elem.offer.guests + ' гостя/гостей' + ' создан');
+      elem.offer.guests + ' гостя/гостей' + 'всего за ' + elem.offer.price + ' создан');
     });
 
     mapPinsList.appendChild(fragment);
