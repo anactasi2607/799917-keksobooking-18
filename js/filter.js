@@ -12,6 +12,7 @@
     var filterData = dataPin.slice();
 
     var filterSelects = mapForm.querySelectorAll('select');
+    var featuresFilters = mapForm.querySelectorAll('input[type=checkbox]:checked');
 
     var FilterRules = {
       'housing-type': 'type',
@@ -25,7 +26,7 @@
       });
     }
 
-      function filterByPrice(priceFilter) {
+    function filterByPrice(priceFilter) {
       return filterData.filter(function (dataElem) {
 
         var priceFilterValues = {
@@ -38,15 +39,27 @@
       });
     }
 
+    function filterByFeatures(item) {
+      return filterData.filter(function (dataElem) {
+        return dataElem.offer.features.indexOf(item.value) >= 0;
+      });
+    }
+
     if (filterSelects.length !== null) {
       filterSelects.forEach(function (item) {
         if (item.value !== 'any') {
-          if (item.id !== 'housing-price'){
-          filterData = filterByValue(item, FilterRules[item.id]);
-        } else {
+          if (item.id !== 'housing-price') {
+            filterData = filterByValue(item, FilterRules[item.id]);
+          } else {
             filterData = filterByPrice(item);
           }
         }
+      });
+    }
+
+    if (featuresFilters !== null) {
+      featuresFilters.forEach(function (item) {
+        filterData = filterByFeatures(item);
       });
     }
 
@@ -54,23 +67,23 @@
       window.map.createFragment(filterData);
     }
 
-  function toggleCard(event) {
-    var data = event.target.dataset.id;
-    if (!data) {
-      return;
-    } else {
-      if (filterData.length) {
-        window.map.createFragmentCard(filterData, data);
-        window.form.setPinClass();
-        var mapPin = event.target;
-        mapPin.classList.add('map__pin--active');
+    function toggleCard(event) {
+      var data = event.target.dataset.id;
+      if (!data) {
+        return;
+      } else {
+        if (filterData.length) {
+          window.map.createFragmentCard(filterData, data);
+          window.form.setPinClass();
+          var mapPin = event.target;
+          mapPin.classList.add('map__pin--active');
+        }
       }
     }
-  }
 
-  var map = document.querySelector('.map');
+    var map = document.querySelector('.map');
 
-  map.addEventListener('click', toggleCard);
+    map.addEventListener('click', toggleCard);
   }
 
   window.filter = {
