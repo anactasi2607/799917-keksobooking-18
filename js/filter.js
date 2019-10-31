@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var PRICE_LIMIT = {
+  var PriceLimit = {
     low: 10000,
     high: 50000
   };
@@ -67,15 +67,15 @@
       window.map.createFragment(filterData);
     }
 
-    function toggleCard(event) {
-      var data = event.target.dataset.id;
+    function toggleCard(evt) {
+      var data = evt.target.dataset.id;
       if (!data) {
         return;
       } else {
         if (filterData.length) {
           window.map.createFragmentCard(filterData, data);
           window.form.setPinClass();
-          var mapPin = event.target;
+          var mapPin = evt.target;
           mapPin.classList.add('map__pin--active');
         }
       }

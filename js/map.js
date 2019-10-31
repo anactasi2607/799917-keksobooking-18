@@ -18,9 +18,9 @@
       var img = item.querySelector('img');
       img.dataset.id = index;
       fragment.appendChild(item);
-      console.log('элемент: ' + '"' + elem.offer.title + '"' +
+/*      console.log('элемент: ' + '"' + elem.offer.title + '"' +
       ' тип: ' + '"' + elem.offer.type + '"' + ' для ' +
-      elem.offer.guests + ' гостя/гостей' + 'всего за ' + elem.offer.price + ' создан');
+      elem.offer.guests + ' гостя/гостей' + 'всего за ' + elem.offer.price + ' создан');*/
     });
 
     mapPinsList.appendChild(fragment);

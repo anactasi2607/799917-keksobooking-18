@@ -37,7 +37,6 @@
 
   function deactivatePage() {
     adForm.classList.add('ad-form--disabled');
-    mapForm.classList.add('ad-form--disabled');
     addDisabled(formFieldset);
     addDisabled(mapFormSelect);
     addDisabled(mapFormFieldset);
@@ -52,7 +51,6 @@
 
   function activatePage() {
     map.classList.remove('map--faded');
-    mapForm.classList.remove('ad-form--disabled');
     adForm.classList.remove('ad-form--disabled');
     removeDisabled(formFieldset);
     removeDisabled(mapFormSelect);
@@ -61,19 +59,19 @@
     activateRoomsInput();
     setAdressAttribute();
     mapPinMain.removeEventListener('mousedown', activatePage);
-    mapPinMain.removeEventListener('keydown', activatePageKeydown);
+    mapPinMain.removeEventListener('keydown', activatePageKeyDown);
   }
 
   mapPinMain.addEventListener('mousedown', activatePage);
 
-  function activatePageKeydown(evt) {
+  function activatePageKeyDown(evt) {
     evt.preventDefault();
     if (evt.keyCode === constant.ENTER_KEYCODE) {
       activatePage();
     }
   }
 
-  mapPinMain.addEventListener('keydown', activatePageKeydown);
+  mapPinMain.addEventListener('keydown', activatePageKeyDown);
 
   function setPinClass() {
     var mapPins = document.querySelectorAll('.map__pin');
@@ -84,14 +82,14 @@
     }
   }
 
-  function toggleCard(event) {
-    var data = event.target.dataset.id;
+  function toggleCard(evt) {
+    var data = evt.target.dataset.id;
     if (!data) {
       return;
     } else {
       window.map.createFragmentCard(pins, data);
       setPinClass();
-      var mapPin = event.target;
+      var mapPin = evt.target;
       mapPin.classList.add('map__pin--active');
     }
   }
@@ -134,16 +132,21 @@
     }
   });
 
-  var timeIn = adForm.querySelector('#timein');
-  var timeOut = adForm.querySelector('#timeout');
+  function toggleTime(evt) {
+    var id = evt.target.id;
+    var timeIn = adForm.querySelector('#timein');
+    var timeOut = adForm.querySelector('#timeout');
 
-  timeOut.addEventListener('change', function () {
-    timeIn.value = timeOut.value;
-  });
+    if (id === 'timein') {
+      timeOut.value = timein.value;
+    } if (id === 'timeout') {
+      timeIn.value = timeout.value;
+    }
+  };
 
-  timeIn.addEventListener('change', function () {
-    timeOut.value = timeIn.value;
-  });
+  var timeFieldset = adForm.querySelector('.ad-form__element--time');
+
+  timeFieldset.addEventListener('change', toggleTime);
 
   var roomsSelect = adForm.querySelector('#room_number');
   var capacity = adForm.querySelector('#capacity');
