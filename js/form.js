@@ -98,11 +98,13 @@
 
   map.addEventListener('click', toggleCard);
 
-  mapForm.addEventListener('change', function () {
+  function onMapFiltersChange() {
     window.map.removePins();
     window.card.closePopup();
     window.map.createFragment(window.filter.updatePins(pins));
-  });
+  }
+
+  mapForm.addEventListener('change', window.debounce(onMapFiltersChange));
 
   var titleInput = adForm.querySelector('#title');
 
