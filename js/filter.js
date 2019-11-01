@@ -30,9 +30,9 @@
       return filterData.filter(function (dataElem) {
 
         var priceFilterValues = {
-          'middle': dataElem.offer.price >= PRICE_LIMIT.low && dataElem.offer.price <= PRICE_LIMIT.high,
-          'low': dataElem.offer.price <= PRICE_LIMIT.low,
-          'high': dataElem.offer.price >= PRICE_LIMIT.high
+          'middle': dataElem.offer.price >= PriceLimit.low && dataElem.offer.price <= PriceLimit.high,
+          'low': dataElem.offer.price <= PriceLimit.low,
+          'high': dataElem.offer.price >= PriceLimit.high
         };
 
         return priceFilterValues[priceFilter.value];
@@ -63,27 +63,7 @@
       });
     }
 
-    if (filterSelects.length) {
-      window.map.createFragment(filterData);
-    }
-
-    function toggleCard(evt) {
-      var data = evt.target.dataset.id;
-      if (!data) {
-        return;
-      } else {
-        if (filterData.length) {
-          window.map.createFragmentCard(filterData, data);
-          window.form.setPinClass();
-          var mapPin = evt.target;
-          mapPin.classList.add('map__pin--active');
-        }
-      }
-    }
-
-    var map = document.querySelector('.map');
-
-    map.addEventListener('click', toggleCard);
+    return filterData;
   }
 
   window.filter = {

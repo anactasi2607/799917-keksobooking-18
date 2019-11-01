@@ -9,18 +9,14 @@
 
   function createFragment(arrData) {
     var fragment = document.createDocumentFragment();
-    /*
-    var filteredArr = arrData/*.slice(0, 5);*/
+    var filteredArr = arrData.slice(0, 5);
 
-    arrData.forEach(function (elem, index) {
+    filteredArr.forEach(function (elem, index) {
       var item = window.pin.renderPin(elem);
       item.dataset.id = index;
       var img = item.querySelector('img');
       img.dataset.id = index;
       fragment.appendChild(item);
-/*      console.log('элемент: ' + '"' + elem.offer.title + '"' +
-      ' тип: ' + '"' + elem.offer.type + '"' + ' для ' +
-      elem.offer.guests + ' гостя/гостей' + 'всего за ' + elem.offer.price + ' создан');*/
     });
 
     mapPinsList.appendChild(fragment);

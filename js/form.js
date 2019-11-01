@@ -83,11 +83,13 @@
   }
 
   function toggleCard(evt) {
+    var pinsArr = window.filter.updatePins(pins);
+
     var data = evt.target.dataset.id;
     if (!data) {
       return;
     } else {
-      window.map.createFragmentCard(pins, data);
+      window.map.createFragmentCard(pinsArr, data);
       setPinClass();
       var mapPin = evt.target;
       mapPin.classList.add('map__pin--active');
@@ -99,7 +101,7 @@
   mapForm.addEventListener('change', function () {
     window.map.removePins();
     window.card.closePopup();
-    window.filter.updatePins(pins);
+    window.map.createFragment(window.filter.updatePins(pins));
   });
 
   var titleInput = adForm.querySelector('#title');
@@ -138,11 +140,11 @@
     var timeOut = adForm.querySelector('#timeout');
 
     if (id === 'timein') {
-      timeOut.value = timein.value;
+      timeOut.value = timeIn.value;
     } if (id === 'timeout') {
-      timeIn.value = timeout.value;
+      timeIn.value = timeOut.value;
     }
-  };
+  }
 
   var timeFieldset = adForm.querySelector('.ad-form__element--time');
 
