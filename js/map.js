@@ -6,10 +6,11 @@
 
 (function () {
   var mapPinsList = document.querySelector('.map__pins');
+  var numberOfPins = 5;
 
   function createFragment(arrData) {
     var fragment = document.createDocumentFragment();
-    var filteredArr = arrData.slice(0, 5);
+    var filteredArr = arrData.slice(0, numberOfPins);
 
     filteredArr.forEach(function (elem, index) {
       var item = window.pin.renderPin(elem);

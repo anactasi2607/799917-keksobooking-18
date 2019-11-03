@@ -82,7 +82,7 @@
     }
   }
 
-  function toggleCard(evt) {
+  function onMapClickHandler(evt) {
     var pinsArr = window.filter.updatePins(pins);
 
     var data = evt.target.dataset.id;
@@ -96,7 +96,7 @@
     }
   }
 
-  map.addEventListener('click', toggleCard);
+  map.addEventListener('click', onMapClickHandler);
 
   function onMapFiltersChange() {
     window.map.removePins();

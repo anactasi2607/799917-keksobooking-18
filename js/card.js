@@ -76,9 +76,9 @@
 
     cardElement.querySelector('.popup__avatar').src = card.author.avatar;
 
-    var closeCard = cardElement.querySelector('.popup__close');
+    var closeCardElement = cardElement.querySelector('.popup__close');
 
-    closeCard.addEventListener('click', closePopup);
+    closeCardElement.addEventListener('click', closePopup);
 
     document.addEventListener('keydown', function (evt) {
       evt.preventDefault();
