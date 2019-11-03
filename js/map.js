@@ -5,12 +5,14 @@
 //  отрисовывает пины и осуществляет взаимодействие карточки и метки на карте
 
 (function () {
+  var mapPinsList = document.querySelector('.map__pins');
+  var numberOfPins = 5;
 
   function createFragment(arrData) {
-    var mapPinsList = document.querySelector('.map__pins');
     var fragment = document.createDocumentFragment();
+    var filteredArr = arrData.slice(0, numberOfPins);
 
-    arrData.forEach(function (elem, index) {
+    filteredArr.forEach(function (elem, index) {
       var item = window.pin.renderPin(elem);
       item.dataset.id = index;
       var img = item.querySelector('img');
@@ -40,10 +42,18 @@
     map.insertBefore(divCards, filterContainer);
   }
 
+  function removePins() {
+    var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    pins.forEach(function (pin) {
+      mapPinsList.removeChild(pin);
+    });
+  }
+
   window.map = {
     createFragment: createFragment,
     createFragmentCard: createFragmentCard,
     createCardSection: createCardSection,
-    divCards: divCards
+    divCards: divCards,
+    removePins: removePins
   };
 })();

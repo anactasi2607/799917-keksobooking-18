@@ -8,9 +8,11 @@
     .querySelector('.map__card');
 
   function getOfferType(value) {
+    var newValue;
+
     switch (value) {
       case 'flat':
-        var newValue = 'Квартира';
+        newValue = 'Квартира';
         break;
       case 'bungalo':
         newValue = 'Бунгало';
@@ -64,8 +66,8 @@
     cardElement.querySelector('.popup__text--capacity').textContent = card.offer.rooms + ' комнаты для ' + card.offer.guests + ' гостей';
     cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout;
 
-    var featuresList = cardElement.querySelector('.popup__features');
-    renderFeaturesList(card.offer.features, featuresList);
+    var featuresListElement = cardElement.querySelector('.popup__features');
+    renderFeaturesList(card.offer.features, featuresListElement);
 
     cardElement.querySelector('.popup__description').textContent = card.offer.description;
 
@@ -74,11 +76,12 @@
 
     cardElement.querySelector('.popup__avatar').src = card.author.avatar;
 
-    var closeCard = cardElement.querySelector('.popup__close');
+    var closeCardElement = cardElement.querySelector('.popup__close');
 
-    closeCard.addEventListener('click', closePopup);
+    closeCardElement.addEventListener('click', closePopup);
 
     document.addEventListener('keydown', function (evt) {
+      evt.preventDefault();
       if (evt.keyCode === window.const.ESC_KEYCODE) {
         closePopup();
       }
