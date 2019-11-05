@@ -4,10 +4,17 @@
   var adressInput = document.querySelector('#address');
   var mainPinCurrentX = mainPin.offsetLeft;
   var mainPinCurrentY = mainPin.offsetTop;
+  var cursorX = parseInt(mainPin.style.left, 10);
+  var cursorY = parseInt(mainPin.style.top, 10);
+  var constant = window.const;
+  var mainPinXMin = constant.MAINPIN_X_MIN - constant.MAINPIN_WIDTH / 2;
+  var mainPinXMax = constant.MAINPIN_X_MAX - constant.MAINPIN_WIDTH / 2;
+  var mainPinYMin = constant.MAINPIN_Y_MIN - constant.MAINPIN_HEIGHT - constant.MAINPIN_END_HEIGHT;
+  var mainPinYMax = constant.MAINPIN_Y_MAX - constant.MAINPIN_HEIGHT - constant.MAINPIN_END_HEIGHT;
 
   function getMainPinCoordinate() {
-    adressInput.value = Math.round(mainPinCurrentX + window.const.MAINPIN_WIDTH / 2) + ', ' +
-    Math.round(mainPinCurrentY + window.const.MAINPIN_HEIGHT + window.const.MAINPIN_END_HEIGHT);
+    adressInput.value = Math.round(mainPinCurrentX + constant.MAINPIN_WIDTH / 2) + ', ' +
+    Math.round(mainPinCurrentY + constant.MAINPIN_HEIGHT + constant.MAINPIN_END_HEIGHT);
   }
 
   mainPin.addEventListener('mousedown', function (evt) {
@@ -34,8 +41,22 @@
       mainPinCurrentX = mainPinCurrentX - shift.x;
       mainPinCurrentY = mainPinCurrentY - shift.y;
 
-      mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
-      mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
+      cursorX = cursorX - shift.x;
+      cursorY = cursorY - shift.y;
+
+      if (mainPinCurrentX > mainPinXMax || cursorX > mainPinXMax) {
+        mainPinCurrentX = mainPinXMax;
+      } else if (mainPinCurrentX < mainPinXMin || cursorX < mainPinXMin) {
+        mainPinCurrentX = mainPinXMin;
+      }
+      if (mainPinCurrentY > mainPinYMax || cursorY > mainPinYMax) {
+        mainPinCurrentY = mainPinYMax;
+      } else if (mainPinCurrentY < mainPinYMin || cursorY < mainPinYMin) {
+        mainPinCurrentY = mainPinYMin;
+      }
+
+      mainPin.style.top = mainPinCurrentY + 'px';
+      mainPin.style.left = mainPinCurrentX + 'px';
 
       getMainPinCoordinate();
     }
