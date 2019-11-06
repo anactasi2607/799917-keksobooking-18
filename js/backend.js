@@ -31,7 +31,6 @@
   function errorHandler(errorMessage) {
     var mainSection = document.querySelector('main');
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
-    var errorButton = document.querySelector('#error__button');
     var errorText = errorTemplate.querySelector('p');
     errorText.textContent = errorMessage;
 
@@ -39,20 +38,21 @@
 
     mainSection.appendChild(errorElement);
 
-    document.addEventListener('keydown', function (evt) {
+    function removeElementClick() {
+      mainSection.removeChild(errorElement);
+      document.removeEventListener('click', removeElementClick);
+    }
+
+    function removeElementEsc(evt) {
       evt.preventDefault();
       if (evt.keyCode === window.const.ESC_KEYCODE) {
         mainSection.removeChild(errorElement);
+        document.removeEventListener('keydown', removeElementEsc);
       }
-    });
+    }
 
-    document.addEventListener('click', function () {
-      mainSection.removeChild(errorElement);
-    });
-
-    errorButton.addEventListener('click', function () {
-      mainSection.removeChild(errorElement);
-    });
+    document.addEventListener('click', removeElementClick);
+    document.addEventListener('keydown', removeElementEsc);
   }
 
   function save(data, onLoad, onError) {
@@ -87,16 +87,22 @@
 
     mainSection.appendChild(successElement);
 
-    document.addEventListener('keydown', function (evt) {
+    function removeElementClick() {
+      mainSection.removeChild(successElement);
+      document.removeEventListener('click', removeElementClick);
+    }
+
+    function removeElementEsc(evt) {
       evt.preventDefault();
       if (evt.keyCode === window.const.ESC_KEYCODE) {
         mainSection.removeChild(successElement);
+        document.removeEventListener('keydown', removeElementEsc);
       }
-    });
+    }
 
-    document.addEventListener('click', function () {
-      mainSection.removeChild(successElement);
-    });
+    document.addEventListener('click', removeElementClick);
+    document.addEventListener('keydown', removeElementEsc);
+    window.form.returnPageToDefault();
   }
 
   window.backend = {

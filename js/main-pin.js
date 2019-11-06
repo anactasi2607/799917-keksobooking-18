@@ -17,6 +17,11 @@
     Math.round(mainPinCurrentY + constant.MAINPIN_HEIGHT + constant.MAINPIN_END_HEIGHT);
   }
 
+  function returnPinToDefault() {
+    mainPin.style.top = '375px';
+    mainPin.style.left = '570px';
+  }
+
   mainPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
@@ -72,4 +77,7 @@
     document.addEventListener('mouseup', onMouseUp);
   });
 
+  window.mainPin = {
+    returnPinToDefault: returnPinToDefault
+  };
 })();

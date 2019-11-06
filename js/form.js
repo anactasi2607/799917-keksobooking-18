@@ -209,8 +209,17 @@
     evt.preventDefault();
   });
 
+  function returnPageToDefault() {
+    window.map.removePins();
+    window.card.closePopup();
+    adForm.reset();
+    mapForm.reset();
+    window.mainPin.returnPinToDefault();
+  }
+
   window.form = {
     setPinClass: setPinClass,
-    pins: pins
+    pins: pins,
+    returnPageToDefault: returnPageToDefault
   };
 })();
