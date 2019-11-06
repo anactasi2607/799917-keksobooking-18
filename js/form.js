@@ -204,6 +204,11 @@
 
   roomsSelect.addEventListener('change', syncRoomsGuests);
 
+  adForm.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(adForm), window.backend.saveSuccessHandler, window.backend.errorHandler);
+    evt.preventDefault();
+  });
+
   window.form = {
     setPinClass: setPinClass,
     pins: pins
