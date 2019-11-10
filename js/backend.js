@@ -59,7 +59,7 @@
 
     function onErrorMessageClick() {
       removePopupMessage(errorElement);
-      document.removeEventListener('click', onErrorMessageClick);
+      document.removeEventListener('mousedown', onErrorMessageClick);
     }
 
     function onErrorMessageEsc(evt) {
@@ -70,7 +70,7 @@
       }
     }
 
-    document.addEventListener('click', onErrorMessageClick);
+    document.addEventListener('mousedown', onErrorMessageClick);
     document.addEventListener('keydown', onErrorMessageEsc);
     mapPinMain.addEventListener('mousedown', window.form.activatePage);
     mapPinMain.removeEventListener('keydown', window.form.activatePageKeyDown);
