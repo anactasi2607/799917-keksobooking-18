@@ -37,6 +37,7 @@
 
   function deactivatePage() {
     adForm.classList.add('ad-form--disabled');
+    map.classList.add('map--faded');
     addDisabled(formFieldset);
     addDisabled(mapFormSelect);
     addDisabled(mapFormFieldset);
@@ -217,6 +218,8 @@
   window.form = {
     setPinClass: setPinClass,
     pins: pins,
-    returnPageToDefault: returnPageToDefault
+    returnPageToDefault: returnPageToDefault,
+    deactivatePage: deactivatePage,
+    activatePage: activatePage
   };
 })();

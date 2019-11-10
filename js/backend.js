@@ -25,7 +25,7 @@
 
     xhr.timeout = window.const.TIMEOUT_VALUE;
     return xhr;
-  }
+  };
 
   function load(onLoad, onError) {
     var xhr = setup(onLoad, onError);
@@ -43,7 +43,7 @@
     if (element) {
       element.remove();
     }
-  };
+  }
 
   function errorHandler(errorMessage) {
     var mainSection = document.querySelector('main');
@@ -55,21 +55,21 @@
 
     mainSection.appendChild(errorElement);
 
-    function removeElementClick() {
+    function onErrorMessageClick() {
       removePopupMessage(errorElement);
-      document.removeEventListener('click', removeElementClick);
+      document.removeEventListener('click', onErrorMessageClick);
     }
 
-    function removeElementEsc(evt) {
+    function onErrorMessageEsc(evt) {
       evt.preventDefault();
       if (evt.keyCode === window.const.ESC_KEYCODE) {
         removePopupMessage(errorElement);
-        document.removeEventListener('keydown', removeElementEsc);
+        document.removeEventListener('keydown', onErrorMessageEsc);
       }
     }
 
-    document.addEventListener('click', removeElementClick);
-    document.addEventListener('keydown', removeElementEsc);
+    document.addEventListener('click', onErrorMessageClick);
+    document.addEventListener('keydown', onErrorMessageEsc);
   }
 
   function saveSuccessHandler() {
@@ -81,23 +81,27 @@
 
     var successElem = document.querySelector('.success');
 
-    function removeElementEsc(evt) {
+    function onSuccessMessageEsc(evt) {
       evt.preventDefault();
       if (evt.keyCode === window.const.ESC_KEYCODE) {
         removePopupMessage(successElem);
       }
-      document.removeEventListener('keydown', removeElementEsc);
+      document.removeEventListener('keydown', onSuccessMessageEsc);
     }
 
-    function removeElementClick(e) {
+    function onSuccessMessageClick(e) {
       e.preventDefault();
       removePopupMessage(successElem);
-      document.removeEventListener('click', removeElementClick);
+      document.removeEventListener('click', onSuccessMessageClick);
     }
 
-    document.addEventListener('click', removeElementClick);
-    document.addEventListener('keydown', removeElementEsc);
+    document.addEventListener('click', onSuccessMessageClick);
+    document.addEventListener('keydown', onSuccessMessageEsc);
+    var mapPinMain = document.querySelector('.map__pin--main');
+    mapPinMain.addEventListener('mousedown', window.form.activatePage);
+
     window.form.returnPageToDefault();
+    window.form.deactivatePage();
   }
 
   window.backend = {
