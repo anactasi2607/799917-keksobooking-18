@@ -1,8 +1,9 @@
 'use strict';
 
 (function () {
-  function load(onLoad, onError) {
-    var URL = 'https://js.dump.academy/keksobooking/data';
+  var URL = 'https://js.dump.academy/keksobooking';
+
+  var setup = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
@@ -23,9 +24,19 @@
     });
 
     xhr.timeout = window.const.TIMEOUT_VALUE;
+    return xhr;
+  }
 
-    xhr.open('GET', URL);
+  function load(onLoad, onError) {
+    var xhr = setup(onLoad, onError);
+    xhr.open('GET', URL + '/data');
     xhr.send();
+  }
+
+  function save(data, onLoad, onError) {
+    var xhr = setup(onLoad, onError);
+    xhr.open('POST', URL);
+    xhr.send(data);
   }
 
   function errorHandler(errorMessage) {
@@ -39,45 +50,24 @@
     mainSection.appendChild(errorElement);
 
     function removeElementClick() {
-      mainSection.removeChild(errorElement);
+      if (errorElement) {
+        errorElement.remove();
+      }
       document.removeEventListener('click', removeElementClick);
     }
 
     function removeElementEsc(evt) {
       evt.preventDefault();
       if (evt.keyCode === window.const.ESC_KEYCODE) {
-        mainSection.removeChild(errorElement);
+        if (errorElement) {
+          errorElement.remove();
+        }
         document.removeEventListener('keydown', removeElementEsc);
       }
     }
 
     document.addEventListener('click', removeElementClick);
     document.addEventListener('keydown', removeElementEsc);
-  }
-
-  function save(data, onLoad, onError) {
-    var URL = 'https://js.dump.academy/keksobooking';
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
-
-    xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
-        onLoad(xhr.response);
-      } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
-      }
-    });
-    xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединения');
-    });
-    xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
-    });
-
-    xhr.timeout = 10000;
-
-    xhr.open('POST', URL);
-    xhr.send(data);
   }
 
   function saveSuccessHandler() {
@@ -87,17 +77,26 @@
 
     mainSection.appendChild(successElement);
 
-    function removeElementClick() {
-      mainSection.removeChild(successElement);
-      document.removeEventListener('click', removeElementClick);
-    }
+    var successElem = document.querySelector('.success');
 
     function removeElementEsc(evt) {
       evt.preventDefault();
       if (evt.keyCode === window.const.ESC_KEYCODE) {
-        mainSection.removeChild(successElement);
-        document.removeEventListener('keydown', removeElementEsc);
+        if (successElem) {
+          successElem.remove();
+        }
       }
+      document.removeEventListener('keydown', removeElementEsc);
+    }
+
+    function removeElementClick(e) {
+      e.preventDefault();
+
+      if (successElem) {
+        successElem.remove();
+      }
+
+      document.removeEventListener('click', removeElementClick);
     }
 
     document.addEventListener('click', removeElementClick);

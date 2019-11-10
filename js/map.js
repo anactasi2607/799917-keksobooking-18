@@ -15,8 +15,6 @@
     filteredArr.forEach(function (elem, index) {
       var item = window.pin.renderPin(elem);
       item.dataset.id = index;
-      var img = item.querySelector('img');
-      img.dataset.id = index;
       fragment.appendChild(item);
     });
 

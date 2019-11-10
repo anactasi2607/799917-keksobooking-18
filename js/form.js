@@ -82,21 +82,18 @@
     }
   }
 
-  function onMapClickHandler(evt) {
+  var mapPins = document.querySelector('.map__pins');
+
+  mapPins.addEventListener('click', function (evt) {
     var pinsArr = window.filter.updatePins(pins);
+    var target = evt.target.closest('button');
 
-    var data = evt.target.dataset.id;
-    if (!data) {
-      return;
-    } else {
-      window.map.createFragmentCard(pinsArr, data);
+    if (target && target.dataset.id !== undefined) {
       setPinClass();
-      var mapPin = evt.target;
-      mapPin.classList.add('map__pin--active');
+      target.classList.add('map__pin--active');
+      window.map.createFragmentCard(pinsArr, target.dataset.id);
     }
-  }
-
-  map.addEventListener('click', onMapClickHandler);
+  });
 
   function onMapFiltersChange() {
     window.map.removePins();
