@@ -50,7 +50,6 @@
   window.map = {
     createFragment: createFragment,
     createFragmentCard: createFragmentCard,
-    createCardSection: createCardSection,
     divCards: divCards,
     removePins: removePins
   };

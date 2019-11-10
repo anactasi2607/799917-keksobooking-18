@@ -26,6 +26,7 @@
   var MAINPIN_X_MAX = document.querySelector('.map__overlay').offsetWidth;
   var MAINPIN_Y_MIN = 130;
   var MAINPIN_Y_MAX = 630;
+  var DEBOUNCE_INTERVAL = 500;
 
   window.const = {
     AVATAR_WIDTH: AVATAR_WIDTH,
@@ -50,6 +51,7 @@
     MAINPIN_X_MIN: MAINPIN_X_MIN,
     MAINPIN_X_MAX: MAINPIN_X_MAX,
     MAINPIN_Y_MIN: MAINPIN_Y_MIN,
-    MAINPIN_Y_MAX: MAINPIN_Y_MAX
+    MAINPIN_Y_MAX: MAINPIN_Y_MAX,
+    DEBOUNCE_INTERVAL: DEBOUNCE_INTERVAL
   };
 })();
