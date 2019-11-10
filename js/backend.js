@@ -39,6 +39,12 @@
     xhr.send(data);
   }
 
+  function removePopupMessage(element) {
+    if (element) {
+      element.remove();
+    }
+  };
+
   function errorHandler(errorMessage) {
     var mainSection = document.querySelector('main');
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -50,18 +56,14 @@
     mainSection.appendChild(errorElement);
 
     function removeElementClick() {
-      if (errorElement) {
-        errorElement.remove();
-      }
+      removePopupMessage(errorElement);
       document.removeEventListener('click', removeElementClick);
     }
 
     function removeElementEsc(evt) {
       evt.preventDefault();
       if (evt.keyCode === window.const.ESC_KEYCODE) {
-        if (errorElement) {
-          errorElement.remove();
-        }
+        removePopupMessage(errorElement);
         document.removeEventListener('keydown', removeElementEsc);
       }
     }
@@ -82,20 +84,14 @@
     function removeElementEsc(evt) {
       evt.preventDefault();
       if (evt.keyCode === window.const.ESC_KEYCODE) {
-        if (successElem) {
-          successElem.remove();
-        }
+        removePopupMessage(successElem);
       }
       document.removeEventListener('keydown', removeElementEsc);
     }
 
     function removeElementClick(e) {
       e.preventDefault();
-
-      if (successElem) {
-        successElem.remove();
-      }
-
+      removePopupMessage(successElem);
       document.removeEventListener('click', removeElementClick);
     }
 
