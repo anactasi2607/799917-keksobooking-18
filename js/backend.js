@@ -45,6 +45,8 @@
     }
   }
 
+  var mapPinMain = document.querySelector('.map__pin--main');
+
   function errorHandler(errorMessage) {
     var mainSection = document.querySelector('main');
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -70,6 +72,8 @@
 
     document.addEventListener('click', onErrorMessageClick);
     document.addEventListener('keydown', onErrorMessageEsc);
+    mapPinMain.addEventListener('mousedown', window.form.activatePage);
+    mapPinMain.removeEventListener('keydown', window.form.activatePageKeyDown);
   }
 
   function saveSuccessHandler() {
@@ -97,8 +101,8 @@
 
     document.addEventListener('click', onSuccessMessageClick);
     document.addEventListener('keydown', onSuccessMessageEsc);
-    var mapPinMain = document.querySelector('.map__pin--main');
     mapPinMain.addEventListener('mousedown', window.form.activatePage);
+    mapPinMain.removeEventListener('keydown', window.form.activatePageKeyDown);
 
     window.form.returnPageToDefault();
     window.form.deactivatePage();

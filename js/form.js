@@ -215,11 +215,23 @@
     window.mainPin.returnPinToDefault();
   }
 
+  var resetForm = adForm.querySelector('.ad-form__reset');
+
+  function resetClickHandler() {
+    returnPageToDefault();
+    deactivatePage();
+    mapPinMain.addEventListener('mousedown', activatePage);
+    mapPinMain.removeEventListener('keydown', activatePageKeyDown);
+  }
+
+  resetForm.addEventListener('click', resetClickHandler);
+
   window.form = {
     setPinClass: setPinClass,
     pins: pins,
     returnPageToDefault: returnPageToDefault,
     deactivatePage: deactivatePage,
-    activatePage: activatePage
+    activatePage: activatePage,
+    activatePageKeyDown: activatePageKeyDown
   };
 })();
