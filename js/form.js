@@ -3,6 +3,14 @@
 //  Этот модуль отвечает за активацию формы и валидацию
 
 (function () {
+  var TITLE_MIN_LENGTH = 30;
+  var TITLE_MAX_LENGTH = 100;
+  var MAX_PRICE = 1000000;
+  var PRICE_PLACEHOLDER = 1000;
+  var BUNGALO_PRICE = 0;
+  var FLAT_PRICE = 1000;
+  var HOUSE_PRICE = 5000;
+  var PALACE_PRICE = 10000;
   var adForm = document.querySelector('.ad-form');
   var formFieldset = adForm.querySelectorAll('fieldset');
   var constant = window.const;
@@ -106,31 +114,31 @@
 
   var titleInput = adForm.querySelector('#title');
 
-  titleInput.setAttribute('minlength', constant.TITLE_MIN_LENGTH);
-  titleInput.setAttribute('maxlength', constant.TITLE_MAX_LENGTH);
+  titleInput.setAttribute('minlength', TITLE_MIN_LENGTH);
+  titleInput.setAttribute('maxlength', TITLE_MAX_LENGTH);
   titleInput.setAttribute('required', '');
 
   var priceInput = adForm.querySelector('#price');
 
-  priceInput.setAttribute('max', constant.MAX_PRICE);
+  priceInput.setAttribute('max', MAX_PRICE);
   priceInput.setAttribute('required', '');
-  priceInput.setAttribute('placeholder', constant.PRICE_PLACEHOLDER);
+  priceInput.setAttribute('placeholder', PRICE_PLACEHOLDER);
 
   var typeInput = adForm.querySelector('#type');
 
   typeInput.addEventListener('change', function () {
     if (typeInput.value === 'bungalo') {
-      priceInput.setAttribute('min', constant.BUNGALO_PRICE);
-      priceInput.setAttribute('placeholder', constant.BUNGALO_PRICE);
+      priceInput.setAttribute('min', BUNGALO_PRICE);
+      priceInput.setAttribute('placeholder', BUNGALO_PRICE);
     } else if (typeInput.value === 'flat') {
-      priceInput.setAttribute('min', constant.FLAT_PRICE);
-      priceInput.setAttribute('placeholder', constant.FLAT_PRICE);
+      priceInput.setAttribute('min', FLAT_PRICE);
+      priceInput.setAttribute('placeholder', FLAT_PRICE);
     } else if (typeInput.value === 'house') {
-      priceInput.setAttribute('min', constant.HOUSE_PRICE);
-      priceInput.setAttribute('placeholder', constant.HOUSE_PRICE);
+      priceInput.setAttribute('min', HOUSE_PRICE);
+      priceInput.setAttribute('placeholder', HOUSE_PRICE);
     } else if (typeInput.value === 'palace') {
-      priceInput.setAttribute('min', constant.PALACE_PRICE);
-      priceInput.setAttribute('placeholder', constant.PALACE_PRICE);
+      priceInput.setAttribute('min', PALACE_PRICE);
+      priceInput.setAttribute('placeholder', PALACE_PRICE);
     }
   });
 

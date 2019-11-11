@@ -1,14 +1,18 @@
 'use strict';
 
+// Этот модуль для взаимодействия с сервером
+
 (function () {
   var URL = 'https://js.dump.academy/keksobooking';
+  var TIMEOUT_VALUE = 10000;
+  var SUCCESSFUL_REQUEST = 200;
 
   var setup = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === window.const.SUCCESSFUL_REQUEST) {
+      if (xhr.status === SUCCESSFUL_REQUEST) {
         onLoad(xhr.response);
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
@@ -23,7 +27,7 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = window.const.TIMEOUT_VALUE;
+    xhr.timeout = TIMEOUT_VALUE;
     return xhr;
   };
 
@@ -93,8 +97,8 @@
       document.removeEventListener('keydown', onSuccessMessageEsc);
     }
 
-    function onSuccessMessageClick(e) {
-      e.preventDefault();
+    function onSuccessMessageClick(evt) {
+      evt.preventDefault();
       removePopupMessage(successElem);
       document.removeEventListener('click', onSuccessMessageClick);
     }

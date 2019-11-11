@@ -1,5 +1,10 @@
 'use strict';
+
+//  Этот модуль для функции устранения дребезга
+
 (function () {
+  var DEBOUNCE_INTERVAL = 500;
+
   window.debounce = function (cb) {
     var lastTimeout = null;
 
@@ -10,7 +15,7 @@
       }
       lastTimeout = window.setTimeout(function () {
         cb.apply(null, parameters);
-      }, window.const.DEBOUNCE_INTERVAL);
+      }, DEBOUNCE_INTERVAL);
     };
   };
 })();

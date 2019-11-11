@@ -5,12 +5,13 @@
 //  отрисовывает пины и осуществляет взаимодействие карточки и метки на карте
 
 (function () {
+  var NUMBER_OF_PINS = 5;
   var mapPinsList = document.querySelector('.map__pins');
-  var numberOfPins = 5;
+
 
   function createFragment(arrData) {
     var fragment = document.createDocumentFragment();
-    var filteredArr = arrData.slice(0, numberOfPins);
+    var filteredArr = arrData.slice(0, NUMBER_OF_PINS);
 
     filteredArr.forEach(function (elem, index) {
       var item = window.pin.renderPin(elem);
