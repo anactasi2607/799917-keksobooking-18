@@ -3,6 +3,9 @@
 //  Этот модуль отвечает за создание карточек пинов
 
 (function () {
+  var IMG_WIDTH = 45;
+  var IMG_HEIGHT = 40;
+
   var cardTemplate = document.querySelector('#card')
     .content
     .querySelector('.map__card');
@@ -40,7 +43,7 @@
   }
 
   function getOfferPhotos(elem) {
-    return '<img src="' + elem + '" class="' + 'popup__photo' + '"" width="' + window.const.IMG_WIDTH + '" height="' + window.const.IMG_HEIGHT + '" alt="' + 'Фотография жилья' + '">';
+    return '<img src="' + elem + '" class="' + 'popup__photo' + '"" width="' + IMG_WIDTH + '" height="' + IMG_HEIGHT + '" alt="' + 'Фотография жилья' + '">';
   }
 
   function renderPhotosGallery(photosArr, photoSection) {

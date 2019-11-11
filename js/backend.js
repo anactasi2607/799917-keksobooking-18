@@ -1,13 +1,18 @@
 'use strict';
 
+// Этот модуль для взаимодействия с сервером
+
 (function () {
-  function load(onLoad, onError) {
-    var URL = 'https://js.dump.academy/keksobooking/data';
+  var URL = 'https://js.dump.academy/keksobooking';
+  var TIMEOUT_VALUE = 10000;
+  var SUCCESSFUL_REQUEST = 200;
+
+  var setup = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === window.const.SUCCESSFUL_REQUEST) {
+      if (xhr.status === SUCCESSFUL_REQUEST) {
         onLoad(xhr.response);
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
@@ -22,11 +27,29 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = window.const.TIMEOUT_VALUE;
+    xhr.timeout = TIMEOUT_VALUE;
+    return xhr;
+  };
 
-    xhr.open('GET', URL);
+  function load(onLoad, onError) {
+    var xhr = setup(onLoad, onError);
+    xhr.open('GET', URL + '/data');
     xhr.send();
   }
+
+  function save(data, onLoad, onError) {
+    var xhr = setup(onLoad, onError);
+    xhr.open('POST', URL);
+    xhr.send(data);
+  }
+
+  function removePopupMessage(element) {
+    if (element) {
+      element.remove();
+    }
+  }
+
+  var mapPinMain = document.querySelector('.map__pin--main');
 
   function errorHandler(errorMessage) {
     var mainSection = document.querySelector('main');
@@ -37,10 +60,62 @@
     var errorElement = errorTemplate.cloneNode(true);
 
     mainSection.appendChild(errorElement);
+
+    function onErrorMessageClick() {
+      removePopupMessage(errorElement);
+      document.removeEventListener('mousedown', onErrorMessageClick);
+    }
+
+    function onErrorMessageEsc(evt) {
+      evt.preventDefault();
+      if (evt.keyCode === window.const.ESC_KEYCODE) {
+        removePopupMessage(errorElement);
+        document.removeEventListener('keydown', onErrorMessageEsc);
+      }
+    }
+
+    document.addEventListener('mousedown', onErrorMessageClick);
+    document.addEventListener('keydown', onErrorMessageEsc);
+    mapPinMain.addEventListener('mousedown', window.form.activatePage);
+    mapPinMain.removeEventListener('keydown', window.form.activatePageKeyDown);
+  }
+
+  function saveSuccessHandler() {
+    var mainSection = document.querySelector('main');
+    var successTemplate = document.querySelector('#success').content.querySelector('.success');
+    var successElement = successTemplate.cloneNode(true);
+
+    mainSection.appendChild(successElement);
+
+    var successElem = document.querySelector('.success');
+
+    function onSuccessMessageEsc(evt) {
+      evt.preventDefault();
+      if (evt.keyCode === window.const.ESC_KEYCODE) {
+        removePopupMessage(successElem);
+      }
+      document.removeEventListener('keydown', onSuccessMessageEsc);
+    }
+
+    function onSuccessMessageClick(evt) {
+      evt.preventDefault();
+      removePopupMessage(successElem);
+      document.removeEventListener('click', onSuccessMessageClick);
+    }
+
+    document.addEventListener('click', onSuccessMessageClick);
+    document.addEventListener('keydown', onSuccessMessageEsc);
+    mapPinMain.addEventListener('mousedown', window.form.activatePage);
+    mapPinMain.removeEventListener('keydown', window.form.activatePageKeyDown);
+
+    window.form.returnPageToDefault();
+    window.form.deactivatePage();
   }
 
   window.backend = {
     load: load,
-    errorHandler: errorHandler
+    errorHandler: errorHandler,
+    save: save,
+    saveSuccessHandler: saveSuccessHandler
   };
 })();
