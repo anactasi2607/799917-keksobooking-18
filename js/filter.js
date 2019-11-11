@@ -1,5 +1,7 @@
 'use strict';
 
+// Этот модуль для фильтрации данных с сервера
+
 (function () {
   var PriceLimit = {
     low: 10000,
