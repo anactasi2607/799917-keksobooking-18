@@ -220,6 +220,7 @@
     adForm.reset();
     mapForm.reset();
     window.mainPin.returnPinToDefault();
+    window.uploadPhoto.deleteFormImage();
   }
 
   var resetForm = adForm.querySelector('.ad-form__reset');

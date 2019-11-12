@@ -61,7 +61,8 @@
 
     mainSection.appendChild(errorElement);
 
-    function onErrorMessageClick() {
+    function onErrorMessageClick(evt) {
+      evt.preventDefault();
       removePopupMessage(errorElement);
       document.removeEventListener('mousedown', onErrorMessageClick);
     }
