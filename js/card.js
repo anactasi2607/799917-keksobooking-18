@@ -59,6 +59,14 @@
     window.form.setPinClass();
   }
 
+  function onPopupEsc(evt) {
+    evt.preventDefault();
+    if (evt.keyCode === window.const.ESC_KEYCODE) {
+      closePopup();
+      document.removeEventListener('keydown', onPopupEsc);
+    }
+  }
+
   function renderCard(card) {
     var cardElement = cardTemplate.cloneNode(true);
 
@@ -83,12 +91,7 @@
 
     closeCardElement.addEventListener('click', closePopup);
 
-    document.addEventListener('keydown', function (evt) {
-      evt.preventDefault();
-      if (evt.keyCode === window.const.ESC_KEYCODE) {
-        closePopup();
-      }
-    });
+    document.addEventListener('keydown', onPopupEsc);
 
     return cardElement;
   }
