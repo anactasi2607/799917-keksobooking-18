@@ -61,22 +61,22 @@
 
     mainSection.appendChild(errorElement);
 
+    function onErrorMessageEsc(evt) {
+      evt.preventDefault();
+      if (evt.keyCode === window.const.ESC_KEYCODE) {
+        removePopupMessage(errorElement);
+      }
+      document.removeEventListener('keydown', onErrorMessageEsc);
+    }
+
     function onErrorMessageClick(evt) {
       evt.preventDefault();
       removePopupMessage(errorElement);
       document.removeEventListener('mousedown', onErrorMessageClick);
     }
 
-    function onErrorMessageEsc(evt) {
-      evt.preventDefault();
-      if (evt.keyCode === window.const.ESC_KEYCODE) {
-        removePopupMessage(errorElement);
-        document.removeEventListener('keydown', onErrorMessageEsc);
-      }
-    }
-
-    document.addEventListener('mousedown', onErrorMessageClick);
     document.addEventListener('keydown', onErrorMessageEsc);
+    document.addEventListener('mousedown', onErrorMessageClick);
     mapPinMain.addEventListener('mousedown', window.form.activatePage);
     mapPinMain.removeEventListener('keydown', window.form.activatePageKeyDown);
   }
