@@ -65,6 +65,7 @@
       evt.preventDefault();
       if (evt.keyCode === window.const.ESC_KEYCODE) {
         removePopupMessage(errorElement);
+        window.form.deactivatePage();
       }
       document.removeEventListener('keydown', onErrorMessageEsc);
     }
