@@ -73,12 +73,14 @@
       evt.preventDefault();
       removePopupMessage(errorElement);
       document.removeEventListener('mousedown', onErrorMessageClick);
+      window.form.deactivatePage();
     }
 
     document.addEventListener('keydown', onErrorMessageEsc);
     document.addEventListener('mousedown', onErrorMessageClick);
     mapPinMain.addEventListener('mousedown', window.form.activatePage);
     mapPinMain.removeEventListener('keydown', window.form.activatePageKeyDown);
+
   }
 
   function saveSuccessHandler() {
