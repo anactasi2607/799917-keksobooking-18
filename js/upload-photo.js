@@ -43,22 +43,52 @@
     }
   }
 
+  function createImg(imgSrc) {
+    var housePhotoImg = document.createElement('img');
+    housePhotoImg.src = imgSrc;
+    housePhotoImg.style.width = PHOTO_PREVIEW_WIDTH + 'px';
+    housePhotoImg.style.height = PHOTO_PREVIEW_HEIGHT + 'px';
+    housePhotoImg.style.margin = PHOTO_MARGIN + 'px';
+    return housePhotoImg;
+  }
+
+  function getFewImagesPreviews(fileChooser, container) {
+    var files = fileChooser.files;
+
+    if (files) {
+      var arrayFiles = Array.from(files);
+      var matches = arrayFiles.every(function (elem) {
+        var fileName = elem.name.toLowerCase();
+        var formatCheck = FILE_TYPES.some(function (item) {
+          return fileName.endsWith(item);
+        });
+        return formatCheck;
+      });
+    }
+
+    if (matches) {
+      Array.prototype.slice.call(files).forEach(function (file) {
+        var reader = new FileReader();
+
+        reader.addEventListener('load', function () {
+          var housePhotoImg = photoPreview.querySelectorAll('img');
+          var photoArray = Array.from(housePhotoImg);
+          if (photoArray.length < PHOTO_NUMBER) {
+            container.appendChild(createImg(reader.result));
+          }
+        });
+
+        reader.readAsDataURL(file);
+      });
+    }
+  }
+
   avatarFileChooser.addEventListener('change', function () {
     getOneImagePreview(avatarFileChooser, avatarPreview);
   });
 
   photoFileChooser.addEventListener('change', function () {
-    var housePhotoImg = photoPreview.querySelectorAll('img');
-    var photoArray = Array.from(housePhotoImg);
-
-    if (photoArray.length < PHOTO_NUMBER) {
-      housePhotoImg = document.createElement('img');
-      housePhotoImg.style.width = PHOTO_PREVIEW_WIDTH + 'px';
-      housePhotoImg.style.height = PHOTO_PREVIEW_HEIGHT + 'px';
-      housePhotoImg.style.margin = PHOTO_MARGIN + 'px';
-      photoPreview.appendChild(housePhotoImg);
-      getOneImagePreview(photoFileChooser, housePhotoImg);
-    }
+    getFewImagesPreviews(photoFileChooser, photoPreview);
   });
 
   function deleteFormImage() {
