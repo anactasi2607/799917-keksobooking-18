@@ -3,7 +3,7 @@
 // Этот модуль для взаимодействия с сервером
 
 (function () {
-  var URL = 'https://js.dump.academy/keksobooking';
+  var URL = 'https://javascript.pages.academy/keksobooking';
   var TIMEOUT_VALUE = 10000;
   var SUCCESSFUL_REQUEST = 200;
 

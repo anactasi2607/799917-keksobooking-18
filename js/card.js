@@ -59,11 +59,13 @@
     window.form.setPinClass();
   }
 
+  var mapPins = document.querySelector(".map__pins");
+
   function onPopupEsc(evt) {
     evt.preventDefault();
     if (evt.keyCode === window.const.ESC_KEYCODE) {
       closePopup();
-      document.removeEventListener('keydown', onPopupEsc);
+      mapPins.removeEventListener('keydown', onPopupEsc);
     }
   }
 
@@ -91,7 +93,7 @@
 
     closeCardElement.addEventListener('click', closePopup);
 
-    document.addEventListener('keydown', onPopupEsc);
+    mapPins.addEventListener('keydown', onPopupEsc);
 
     return cardElement;
   }
